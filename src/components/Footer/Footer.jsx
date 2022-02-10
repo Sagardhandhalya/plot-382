@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 const Footer = () => {
   return (
     <footer class="footer has-text-left">
@@ -23,6 +24,9 @@ const Footer = () => {
         {" "}
         Copyright @2021 Sagar Dhandhalya{" "}
         <a href="tel:9081606040"> 9081606040</a>
+        <Link class="navbar-item" to="/admin">
+          admin
+        </Link>
       </h1>
     </footer>
   );
