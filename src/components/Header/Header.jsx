@@ -4,9 +4,9 @@ import { useState } from "react";
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <nav class="navbar" role="navigation" aria-label="main navigation">
-      <div class="navbar-brand">
-        <Link class="navbar-item" to="#">
+    <nav className="navbar" role="navigation" aria-label="main navigation">
+      <div className="navbar-brand">
+        <Link className="navbar-item" to="#">
           <img
             src="./logo.jpeg"
             style={{ maxHeight: "50px" }}
@@ -17,7 +17,7 @@ const Header = () => {
         <Link
           to={"#"}
           role="button"
-          class={isOpen ? "navbar-burger is-active" : "navbar-burger"}
+          className={isOpen ? "navbar-burger is-active" : "navbar-burger"}
           aria-label="menu"
           aria-expanded="false"
           data-target="navbarBasicExample"
@@ -31,16 +31,16 @@ const Header = () => {
 
       <div
         id="navbarBasicExample"
-        class={isOpen ? "navbar-menu is-active" : "navbar-menu"}
+        className={isOpen ? "navbar-menu is-active" : "navbar-menu"}
       >
-        <div class="navbar-end">
-          <div class="navbar-item">
+        <div className="navbar-end">
+          <div className="navbar-item">
             <Link to="/"> Home </Link>
           </div>
-          <div class="navbar-item">
+          <div className="navbar-item">
             <Link to="/products"> Products </Link>
           </div>
-          <div class="navbar-item">
+          <div className="navbar-item">
             <Link to="/contact"> Contact Us </Link>
           </div>
         </div>

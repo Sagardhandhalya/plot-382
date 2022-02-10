@@ -10,14 +10,17 @@ import Admin from "./components/admin/Admin";
 function App() {
   return (
     <Router>
-      <Header />
-      <Switch>
-        <Route path="/products" exact={true} component={Product} />
-        <Route path="/contact" exact={true} component={Contact} />
-        <Route path="/admin" exact={true} component={Admin} />
-        <Route path="/" exact={true} component={Home} />
-      </Switch>
-      <Footer />
+      <div className="container">
+        <Header />
+        <Switch>
+          <Route path="/products" exact={true} component={Product} />
+          <Route path="/contact" exact={true} component={Contact} />
+          <Route path="/admin" exact={true} component={Admin} />
+          <Route path="/" exact={true} component={Home} />
+        </Switch>
+        <hr />
+        <Footer />
+      </div>
     </Router>
   );
 }

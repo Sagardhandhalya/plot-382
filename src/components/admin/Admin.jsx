@@ -1,9 +1,95 @@
-import { useState, useEffect } from "react";
-import { collection, onSnapshot } from "firebase/firestore";
-import ProductTile from "./../ProductTile/ProductTile";
+import { useState } from "react";
+import { collection, addDoc } from "firebase/firestore";
 import { db } from "./../../firebase.config";
 const Admin = () => {
-  return <h1>Sagar</h1>;
+  const [isPassCorrect, setIsPassCorrect] = useState(true)
+  const [imageStr, setImageStr] = useState("")
+  const [name, setName] = useState("")
+  const [price, setPrice] = useState(0)
+  const [description, setDescription] = useState("")
+  const [note, setNote] = useState(null)
+
+  const checkPass = (pass) => {
+    console.log(pass);
+    if (pass === 'plot382') {
+      setIsPassCorrect(true)
+    } else {
+      setIsPassCorrect(false)
+    }
+  }
+
+  const showAndUploadImage = (input) => {
+    console.log(input);
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function () {
+        console.log(reader.result);
+        setImageStr(reader.result)
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+
+
+  }
+
+  const addProduct = async () => {
+    const product = { description, imageUrl: imageStr, name, price }
+    console.log(product);
+    addDoc(collection(db, "products"), product).then(res => {
+      setNote({ success: true, content: "product added successful" })
+    }).catch(e => {
+      console.log(e);
+      setNote({ success: false, content: "Not able to add product" })
+    });
+  }
+
+  return <div>
+    {note && <article className={note.success ? "message is-success" : "message is-danger"}>
+      <div className="message-header">
+        <p>{note.content}</p>
+        <button className="delete" aria-label="delete"></button>
+      </div>
+    </article>}
+    <h1 className="is-size-5 has-text-centered mb-4">Add New Product </h1>
+    <div className="field">
+      <label className="label">Admin Password</label>
+      <div className="control">
+        <input className="input" type="password" placeholder="password" onChange={e => checkPass(e.target.value)} />
+      </div>
+    </div>
+    {
+      isPassCorrect && <div>
+        {imageStr && <img src={imageStr} alt="" width={300} height={300} />}
+        <div className="field">
+          <label className="label">image</label>
+          <div className="control">
+            <input className="input" type="file" onChange={e => showAndUploadImage(e.target)} />
+          </div>
+        </div>
+        <div className="field">
+          <label className="label">product Name</label>
+          <div className="control">
+            <input className="input" type="text" placeholder="લાકડાના પ્લાય" onChange={e => setName(e.target.value)} />
+          </div>
+        </div>
+        <div className="field">
+          <label className="label">price</label>
+          <div className="control">
+            <input className="input" type="number" placeholder="2000" onChange={e => setPrice(e.target.value)} />
+          </div>
+        </div>
+        <div className="field">
+          <label className="label">Description</label>
+          <div className="control">
+            <textarea className="textarea" placeholder="Textarea" onChange={e => setDescription(e.target.value)}></textarea>
+          </div>
+        </div>
+      </div>
+    }
+    <div className="control is-flex">
+      <button className="button is-link mt-5 ml-5" onClick={addProduct}>Add Product</button>
+    </div>
+  </div>;
 };
 
 export default Admin;

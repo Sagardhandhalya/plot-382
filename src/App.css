@@ -1,5 +1,9 @@
-a{
-    text-decoration: none;
-    color: rgb(75, 69, 69);
-    font-weight: 600;
+a {
+  text-decoration: none;
+  color: rgb(75, 69, 69);
+  font-weight: 600;
+}
+
+.container {
+  margin: 0px 5%;
 }
