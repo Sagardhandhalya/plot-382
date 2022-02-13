@@ -6,7 +6,7 @@ import Product from "./components/Product/Product";
 import Contact from "./components/Contact/Contact";
 import Footer from "./components/Footer/Footer";
 import Admin from "./components/admin/Admin";
-
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 function App() {
   return (
     <Router>

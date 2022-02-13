@@ -1,49 +1,78 @@
 import { useState } from "react";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "./../../firebase.config";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { Triangle } from 'react-loader-spinner'
+import "./Admin.css"
+const storage = getStorage();
+const uploadImageToFirebase = async (file) => {
+  const fname = "/images/" + file.name;
+  try {
+    const storageRef = ref(storage, fname);
+    await uploadBytes(storageRef, file);
+    const url = await getDownloadURL(storageRef, fname);
+    console.log(url);
+    return url;
+  }
+  catch (err) {
+    console.log('not able to upload ', err);
+    return false
+  }
+}
+
 const Admin = () => {
-  const [isPassCorrect, setIsPassCorrect] = useState(true)
+  const [isPassCorrect, setIsPassCorrect] = useState(false)
   const [imageStr, setImageStr] = useState("")
   const [name, setName] = useState("")
   const [price, setPrice] = useState(0)
   const [description, setDescription] = useState("")
   const [note, setNote] = useState(null)
+  const [isLoader, setIsLoader] = useState(false)
 
   const checkPass = (pass) => {
     console.log(pass);
-    if (pass === 'plot382') {
+    if (pass === 'plot383') {
       setIsPassCorrect(true)
     } else {
       setIsPassCorrect(false)
     }
   }
 
-  const showAndUploadImage = (input) => {
+  const showAndUploadImage = async (input) => {
     console.log(input);
     if (input.files && input.files[0]) {
       var reader = new FileReader();
-      reader.onload = function () {
+      reader.onload = async function () {
         console.log(reader.result);
-        setImageStr(reader.result)
+        const isUploaded = await uploadImageToFirebase(input.files[0])
+        if (!isUploaded) {
+          setNote({ success: false, content: "Not able to upload image try again" })
+        }
+        console.log(isUploaded);
+        setImageStr(isUploaded)
       };
       reader.readAsDataURL(input.files[0]);
     }
-
-
   }
 
   const addProduct = async () => {
     const product = { description, imageUrl: imageStr, name, price }
     console.log(product);
+    setIsLoader(true)
     addDoc(collection(db, "products"), product).then(res => {
+      setIsLoader(false)
       setNote({ success: true, content: "product added successful" })
     }).catch(e => {
       console.log(e);
+      setIsLoader(false)
       setNote({ success: false, content: "Not able to add product" })
     });
   }
 
   return <div>
+    {isLoader && <div class="loader123">
+      <div><Triangle color="#00BFFF" height={80} width={80} />
+      </div></div>}
     {note && <article className={note.success ? "message is-success" : "message is-danger"}>
       <div className="message-header">
         <p>{note.content}</p>
@@ -84,11 +113,12 @@ const Admin = () => {
             <textarea className="textarea" placeholder="Textarea" onChange={e => setDescription(e.target.value)}></textarea>
           </div>
         </div>
+        <div className="control is-flex">
+          <button className="button is-link mt-5 ml-5" onClick={addProduct}>Add Product</button>
+        </div>
       </div>
     }
-    <div className="control is-flex">
-      <button className="button is-link mt-5 ml-5" onClick={addProduct}>Add Product</button>
-    </div>
+
   </div>;
 };
 

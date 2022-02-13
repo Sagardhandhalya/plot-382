@@ -12,7 +12,6 @@ const ProductTile = ({ product }) => {
           <div className="media-content">
             <p className="title is-3">{product.name}</p>
             <p className="title is-4">{product.price} Rs.</p>
-            <p className="subtitle is-6">5% OFF</p>
           </div>
         </div>
 

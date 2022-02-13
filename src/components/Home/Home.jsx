@@ -10,7 +10,8 @@ const Home = () => {
           alignItems: "center",
         }}
       >
-        <img src="./ship.png" alt="title" />
+        <img src="./ship.png" alt="title" width={300} />
+        <img src="./sandip.jpeg" alt="title" style={{ marginTop: "50px" }} />
         <img src="./title.jpeg" alt="title" />
         <h1 className="tag is-warning is-size-3">પ્લોટ નં. 383</h1>
       </section>
