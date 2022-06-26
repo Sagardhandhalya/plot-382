@@ -1,9 +1,28 @@
 a {
   text-decoration: none;
-  color: rgb(75, 69, 69);
   font-weight: 600;
 }
 
 .container {
   margin: 0px 5%;
 }
+
+.flex-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0px 5%;
+  flex-wrap: wrap;
+}
+
+@media screen and (max-width:500px) {
+  .flex-container{
+   flex-direction: column;
+    margin:0px;
+  }
+
+  .container{
+    margin: 0px;
+  }
+}
+

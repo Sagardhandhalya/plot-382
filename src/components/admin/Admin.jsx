@@ -19,6 +19,13 @@ const uploadImageToFirebase = async (file) => {
     return false
   }
 }
+const options = [
+  'સન પ્લાય',
+  'સ્ક્રિન ડોર',
+  'કોરી પ્લાય',
+  'એલ્યુમિનિયમ ડોર',
+  'એલ્યુમિનિયમ બારી'
+]
 
 const Admin = () => {
   const [isPassCorrect, setIsPassCorrect] = useState(false)
@@ -27,6 +34,7 @@ const Admin = () => {
   const [price, setPrice] = useState(0)
   const [description, setDescription] = useState("")
   const [note, setNote] = useState(null)
+  const [category, setCategory] = useState('સન પ્લાય')
   const [isLoader, setIsLoader] = useState(false)
 
   const checkPass = (pass) => {
@@ -56,18 +64,25 @@ const Admin = () => {
   }
 
   const addProduct = async () => {
-    const product = { description, imageUrl: imageStr, name, price }
-    console.log(product);
-    setIsLoader(true)
-    addDoc(collection(db, "products"), product).then(res => {
-      setIsLoader(false)
-      setNote({ success: true, content: "product added successful" })
-    }).catch(e => {
-      console.log(e);
-      setIsLoader(false)
-      setNote({ success: false, content: "Not able to add product" })
-    });
-  }
+    if(description && imageStr && name && price ){
+      const product = { description, imageUrl: imageStr, name, price,cat:category }
+      console.log(product);
+      setIsLoader(true)
+      addDoc(collection(db, "products"), product).then(res => {
+        setIsLoader(false)
+        setNote({ success: true, content: "product added successful" })
+        window.scroll(0,0)
+      }).catch(e => {
+        console.log(e);
+        setIsLoader(false)
+        setNote({ success: false, content: "Not able to add product" })
+        window.scroll(0,0)
+      });
+    }else{
+      window.scroll(0,0)
+      setNote({ success: false, content: "Please fill all the feild." })
+    }
+ }
 
   return <div>
     {isLoader && <div class="loader123">
@@ -105,6 +120,20 @@ const Admin = () => {
           <label className="label">price</label>
           <div className="control">
             <input className="input" type="number" placeholder="2000" onChange={e => setPrice(e.target.value)} />
+          </div>
+        </div>
+        <div className="field">
+        <label className="label">Category</label>
+          <div class="select">
+            <select onChange={(e) => {
+              setCategory(e.target.value)
+            }}>
+              {
+                options.map((op,idx) => {
+                  return <option value={op}>{op}</option>
+                })
+              }
+            </select>
           </div>
         </div>
         <div className="field">
