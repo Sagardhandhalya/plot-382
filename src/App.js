@@ -7,11 +7,13 @@ import Contact from "./components/Contact/Contact";
 import Footer from "./components/Footer/Footer";
 import Admin from "./components/admin/Admin";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import BootomAppbar from "./components/bottomAppbar/BootomAppbar";
+
 function App() {
   return (
     <Router>
       <div className="container">
-        <Header />
+        {/* <Header /> */}
         <Switch>
           <Route path="/products" exact={true} component={Product} />
           <Route path="/contact" exact={true} component={Contact} />
@@ -19,6 +21,7 @@ function App() {
           <Route path="/" exact={true} component={Home} />
         </Switch>
         <hr />
+        <BootomAppbar />
         <Footer />
       </div>
     </Router>

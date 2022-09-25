@@ -34,10 +34,10 @@ const Product = () => {
   return (
     <div className="my-5">
       <nav class="panel" style={{
-        boxShadow:'none',
+        boxShadow: 'none',
       }}>
         <p class="panel-tabs p-5">
-          {tabsArr.map((t, idx) => <Tab tabName={t} />) }
+          {tabsArr.map((t, idx) => <Tab tabName={t} />)}
         </p>
       </nav>
       <div class="panel-block flex-container">

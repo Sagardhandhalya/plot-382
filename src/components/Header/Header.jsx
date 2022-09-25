@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 
 const Header = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  // const [isOpen, setIsOpen] = useState(false);
   return (
     <nav className="navbar" role="navigation" aria-label="main navigation">
       <div className="navbar-brand">
@@ -14,7 +14,7 @@ const Header = () => {
           />
         </Link>
 
-        <Link
+        {/* <Link
           to={"#"}
           role="button"
           className={isOpen ? "navbar-burger is-active" : "navbar-burger"}
@@ -26,12 +26,12 @@ const Header = () => {
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
-        </Link>
+        </Link> */}
       </div>
 
       <div
         id="navbarBasicExample"
-        className={isOpen ? "navbar-menu is-active" : "navbar-menu"}
+        className="navbar-menu"
       >
         <div className="navbar-end">
           <div className="navbar-item">
@@ -45,7 +45,7 @@ const Header = () => {
           </div>
         </div>
       </div>
-    </nav>
+    </nav >
   );
 };
 
